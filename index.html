@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome to Vue</title>
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+
+    {{this.header}}
+
+  </div>
+
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        header: {
+        ipaddress: '',
+        language: '',
+        software: '',
+      }
+      },
+      mounted() {
+
+    $.getJSON("https://api.ipify.org?format=jsonp&callback=?",
+      function(json) {
+        this.header.ipaddress = json.ip;
+        this.header.language = navigator.language;
+        this.header.software = navigator.userAgent.split(') ')[0].split(' (')[1];
+      }.bind(this));
+        }
+
+    })
+  </script>
+</body>
+</html>
